@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 
 //route for login 
-Route::post('/login', 'LoginController@login'); 
+Route::post('/login',  '\App\Http\Controllers\Auth\LoginController@login'); 
 
-Route::middleware('auth:api')->prefix('user')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     //route for eligibility check
     Route::post('/eligibility_check', 'CampaginController@eligibilityCheck')->name('eligibility_check'); 

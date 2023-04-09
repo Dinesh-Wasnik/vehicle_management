@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+
+
 class LoginController extends Controller
 {
     /*
@@ -37,4 +41,32 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    //login user and return token
+    public function login(Request $request)
+    { 
+        try {
+
+            $client = new Client();
+            $res = $client->request('get', env('OAUTH_TOKEN_URL'), [
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => $request->client_id,
+                    'client_secret' => $request->client_secret,
+                    'username' => $request->email,
+                    'password' => $request->password,
+                    'scope'   => '*'
+                ]
+
+            ]);
+        } catch (\Exception $e) {
+
+                return response()->json([
+                    'message' => 'Error occured while creating token'
+                ]);
+        }
+
+
+        return json_decode((string) $res->getBody(), true);
+    }    
 }
