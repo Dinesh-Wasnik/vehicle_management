@@ -18,13 +18,10 @@ use Illuminate\Support\Facades\Route;
 //route for login 
 Route::post('/login',  '\App\Http\Controllers\Auth\LoginController@login'); 
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->prefix('worker')->group(function () {
 
-    //route for eligibility check
-    Route::post('/eligibility_check', 'CampaginController@eligibilityCheck')->name('eligibility_check'); 
-
-    //route for validate photo submission
-    Route::post('/validate_submission', 'CampaginController@validateSubmission')->name('validate_submission');
+    Route::post('/create', 'workerController@store')->name('worker.store');
+    Route::get('/{id}', 'workerController@show')->name('worker.show');
 
 });
 

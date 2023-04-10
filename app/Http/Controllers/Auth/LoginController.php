@@ -48,7 +48,7 @@ class LoginController extends Controller
         try {
 
             $client = new Client();
-            $res = $client->request('get', env('OAUTH_TOKEN_URL'), [
+            $res = $client->request('POST', env('OAUTH_TOKEN_URL'), [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => $request->client_id,
