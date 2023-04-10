@@ -18,10 +18,24 @@ use Illuminate\Support\Facades\Route;
 //route for login 
 Route::post('/login',  '\App\Http\Controllers\Auth\LoginController@login'); 
 
-Route::middleware('auth:api')->prefix('worker')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
-    Route::post('/create', 'workerController@store')->name('worker.store');
-    Route::get('/{id}', 'workerController@show')->name('worker.show');
+    Route::prefix('worker')->group(function () {
+        Route::get('/{id}', 'workerController@show')->name('worker.show');
+        Route::post('/create', 'workerController@store')->name('worker.store');
+    });
+
+    Route::prefix('inspection')->group(function () {
+        Route::post('/create', 'InspectionController@store')->name('inspection.store');
+        Route::get('/{id}', 'InspectionController@show')->name('inspection.show');
+    });    
+
+    Route::prefix('vehicle')->group(function () {
+        Route::post('/create', 'VechicleController@store')->name('vehicle.store');
+        Route::get('/{id}', 'VechicleController@show')->name('vehicle.show');
+        Route::put('/{id}', 'VechicleController@update')->name('vehicle.update');
+    });    
+
 
 });
 

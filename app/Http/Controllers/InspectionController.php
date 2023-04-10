@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Inspection;
 
 class InspectionController extends Controller
 {
@@ -34,7 +35,22 @@ class InspectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+             Inspection::create([
+                'type'      => $request->type,
+                'worker_id'  => $request->worker_id,
+                'vehicle_id' => $request->vehicle_id
+            ]);
+        } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'Error occured while creating vehicle Inspection'
+                ]);
+        }
+
+        return response()->json([
+            'message' => ' vehicle inspection created',
+        ]);
     }
 
     /**
@@ -45,7 +61,16 @@ class InspectionController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            
+            return Inspection::findOrFail($id);
+
+        }catch(\Exception $e){
+            
+            return response()->json([
+                'message' => 'vehicle inspection record not found',
+            ]);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Vehicle;
 
 class VechicleController extends Controller
 {
@@ -34,7 +35,24 @@ class VechicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+             Vehicle::create([
+                'name'      => $request->name,
+                'acquired_date'  => $request->acquired_date,
+                'parking_location' => $request->parking_location,
+                'worker_id' => $request->worker_id,
+                'license_number' => $request->license_number,
+            ]);
+        } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'Error occured while creating vehicle information'
+                ]);
+        }
+
+        return response()->json([
+            'vehicle_name' =>  $request->name,
+            'message' => ' vehicle information added successfully',
+        ]);
     }
 
     /**
@@ -45,7 +63,16 @@ class VechicleController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            
+            return Vehicle::findOrFail($id);
+
+        }catch(\Exception $e){
+            
+            return response()->json([
+                'message' => 'vehicle  record not found',
+            ]);
+        }
     }
 
     /**
@@ -68,7 +95,17 @@ class VechicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         try {
+             Vehicle::where('id', $id)->update($request->all());
+        } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'Error occured while updating vehicle information'
+                ]);
+        }
+
+        return response()->json([
+            'message' => ' vehicle information updated successfully',
+        ]);
     }
 
     /**

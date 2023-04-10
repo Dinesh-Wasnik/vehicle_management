@@ -61,13 +61,13 @@ class WorkerController extends Controller
         } catch (\Exception $e) {
 
                 return response()->json([
-                    'message' => 'Error occured while worker'
+                    'message' => 'Error occured while creating worker'
                 ]);
         }
 
         return response()->json([
             'first_name' => $request->first_name,
-            'message' => 'Error occured while worker',
+            'message' => 'worker created',
         ]);
 
     }
