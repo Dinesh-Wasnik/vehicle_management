@@ -10,7 +10,7 @@ They are also providing you the data from their old, analog system as CSV-Files.
 Your task is to create a REST-API in laravel that enables the display of data for the vehicles, the inspections and workers as well as the possibilities to create new inspections, vehicles and workers and the possibility to edit modifiable info on vehicles.
 
 ## Project Requirement
-- You can setup project xampp or wampp software
+- You can setup project on xampp or wampp software
 - Laragon software is recommended.
 
 
