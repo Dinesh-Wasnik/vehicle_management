@@ -40,7 +40,7 @@ Your task is to create a REST-API in laravel that enables the display of data fo
 
 
 
-## Postman Guidine.
+## Postman Guidelines.
  - For client_id field  take value from id column of  ```oauth_clients```  table from 2nd id .
  
  - For client_secret  field  take value from secret column of ```oauth_clients```  table from 2nd row .
