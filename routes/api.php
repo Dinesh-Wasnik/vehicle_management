@@ -33,7 +33,7 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('vehicle')->group(function () {
         Route::post('/create', 'VechicleController@store')->name('vehicle.store');
         Route::get('/{id}', 'VechicleController@show')->name('vehicle.show');
-        Route::put('/{id}', 'VechicleController@update')->name('vehicle.update');
+        Route::patch('/{id}', 'VechicleController@update')->name('vehicle.update');
     });    
 
 

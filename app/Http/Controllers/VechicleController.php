@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Vehicle;
+use Illuminate\Support\Facades\Validator;
+
 
 class VechicleController extends Controller
 {
@@ -27,6 +29,17 @@ class VechicleController extends Controller
         //
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required'],
+            'acquired_date' => ['required'],
+            'parking_location' => ['required'],
+            'worker_id'     => ['required'],
+            'license_number' => ['required'],
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,6 +48,8 @@ class VechicleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validator($request->all())->validate();
+
         try {
              Vehicle::create([
                 'name'      => $request->name,
@@ -95,8 +110,16 @@ class VechicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-         try {
+        if(empty($request->all()))
+        {
+            return response()->json([
+                'message' => 'data must not be empty'
+            ]);
+        }
+
+        try {
              Vehicle::where('id', $id)->update($request->all());
+
         } catch (\Exception $e) {
                 return response()->json([
                     'message' => 'Error occured while updating vehicle information'
