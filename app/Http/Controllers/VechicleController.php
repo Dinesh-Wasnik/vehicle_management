@@ -80,10 +80,9 @@ class VechicleController extends Controller
     {
         try{
             
-            return Vehicle::findOrFail($id);
+            return Vehicle::with('worker')->findOrFail($id);
 
         }catch(\Exception $e){
-            
             return response()->json([
                 'message' => 'vehicle  record not found',
             ]);

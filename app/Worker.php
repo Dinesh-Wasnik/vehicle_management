@@ -17,6 +17,14 @@ class Worker extends Model
     ];
 
 
+    /**
+     * Get the vehicles for the Worker .
+     */
+    public function vehicles()
+    {
+
+        return $this->hasMany('App\Vehicle', 'worker_id');
+    }
 
     
 }

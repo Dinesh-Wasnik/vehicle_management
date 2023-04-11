@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Worker;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WorkerController extends Controller
 {
@@ -81,7 +82,8 @@ class WorkerController extends Controller
     public function show($id)
     {
         try{
-            return Worker::findOrFail($id);
+            return Worker::with('vehicles')->findOrFail($id);
+            
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Worker id not found',

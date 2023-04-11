@@ -14,4 +14,20 @@ class Inspection extends Model
     protected $fillable = [
         'type', 'worker_id', 'vehicle_id',
     ];
+
+    /**
+     * Get the vehicle.
+     */
+    public function vehicle()
+    {
+        return $this->belongsTo('App\Vehicle');
+    }
+
+    /**
+     * Get the worker.
+     */
+    public function worker()
+    {
+        return $this->belongsTo('App\Worker');
+    }
 }

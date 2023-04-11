@@ -63,7 +63,7 @@ class InspectionController extends Controller
     {
         try{
             
-            return Inspection::findOrFail($id);
+            return Inspection::with(['worker', 'vehicle'])->findOrFail($id);
 
         }catch(\Exception $e){
             
